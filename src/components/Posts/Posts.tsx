@@ -9,7 +9,7 @@ export default function Posts() {
 
     const fetchPosts = async () => {
         try {
-            const response = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/lucasluke307.wordpress.com/posts');
+            const response = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/praiagrandedicas.wordpress.com/posts');
             const data = await response.json();
             setPosts(data.posts);
         } catch (error) {
@@ -17,36 +17,50 @@ export default function Posts() {
         }
     };
 
-    useEffect(() => { fetchPosts(); }, []);
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    const formatDate = (date: string) => {
+        return new Intl.DateTimeFormat('pt-BR', {
+            month: 'long',
+            day: '2-digit',
+            year: 'numeric',
+        }).format(new Date(date));
+    };
 
     return (
-        <div className="blog-content">
-            <section className="posts row px-xl-5 w-100">
-                <h2>Últimos Posts</h2>
+        <div className="blog-content container-fluid mt-5">
+            <section className="posts row px-xl-5">
+                <h2 className="posts-title text-center text-lg-start mb-lg-4">
+                    Publicações Recentes
+                </h2>
 
                 {posts.length ? (
                     posts.map((post: any) => (
-                        <article key={post.id} className="col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
-                            <div className="card h-100">
-                                <div>
+                        <article key={post.ID} className="col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
+                            <div className="card card-post h-100 px-3 px-lg-0">
+                                <div className="mb-3">
                                     <h2 className="card-title">
                                         <Link
-                                            to={`/${post.id}`}
-                                            dangerouslySetInnerHTML={{ __html: post.title }}
-                                        />
+                                            className="card-title"
+                                            to={`/post/${post.ID}`}
+                                            dangerouslySetInnerHTML={{ __html: post.title }} />
                                     </h2>
+
+                                    <span className="card-date">{ formatDate(post.date) }</span>
                                 </div>
 
                                 <div
-                                    className="post-excerpt"
-                                    dangerouslySetInnerHTML={{ __html: post.excerpt }}
-                                />
+                                    className="card-text"
+                                    dangerouslySetInnerHTML={{ __html: post.excerpt }} />
 
-                                <div className="post-footer">
-                                    <Link to={`${post.id}`} className="read-more">
-                                        Continue reading
-                                    </Link>
-                                </div>
+                                <Link
+                                    to={`/post/${post.ID}`}
+                                    className="col-12 btn button-style view-button mt-2 read-more"
+                                >
+                                    Continue lendo
+                                </Link>
                             </div>
                         </article>
                     ))

@@ -1,11 +1,24 @@
+.posts-title {
+    font-weight: bold;
+}
+
+.card-post {
+    border: none;
+    border-radius: 3px;
+    padding-top: 20px;
+    box-shadow: 1px 1px 4px rgba(#000000, .3);
+}
+
 .card-title {
-    font-size: 1.4rem;
+    font-size: 1.28rem;
     font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 0;
 }
 
 @media screen and (min-width:900px) {
     .card-title {
-        font-size: 1.2rem;
+        font-size: 1.45rem;
     }
 }
 
@@ -13,4 +26,59 @@
     .card-title {
         font-size: 2rem;
     }
+}
+
+.card-date {
+    font-size: .9rem;
+    font-style: italic;
+    color: #949393;
+}
+
+.card-text {
+    text-align: justify;
+    text-wrap: wrap;
+    overflow: hidden;
+    position: relative;
+    display: -webkit-box;
+    line-clamp: 10;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+}
+
+
+@media screen and (min-width:900px) {
+    .card-text {
+        font-size: .94rem;
+    }
+}
+
+@media screen and (min-width:1900px) {
+    .card-text {
+        font-size: 1.3rem;
+    }
+}
+
+.button-style {
+    color: #FF0000;
+    padding: 10px 0;
+    border-radius: 3px;
+
+}
+
+@media screen and (min-width: 1900px) {
+    .button-style {
+        padding: 16px 0;
+        font-size: 1.3rem;
+    }
+}
+
+.view-button {
+    background: transparent;
+    transition: 300ms ease-in-out;
+    border: 1px solid #FF0000;
+}
+
+.view-button:hover {
+    color: #FFF;
+    background: #FF0000;
 }

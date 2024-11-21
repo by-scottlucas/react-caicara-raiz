@@ -5,9 +5,9 @@ import logotipo from '../../assets/logotipo.png';
 export default function Header() {
     return (
         <nav className="navbar navbar-expand-lg p-lg-3">
-            <div className="container-fluid d-flex align-items-end">
+            <div className="container-fluid d-flex">
                 <a className="navbar-brand col-6 col-sm-4 col-md-3 col-lg-2" href="#">
-                    <img src={logotipo} alt="PG Dicas" className="img-fluid" />
+                    <img src={logotipo} alt="PG Dicas" className="img-fluid logotipo" />
                 </a>
 
                 <button
@@ -27,6 +27,7 @@ export default function Header() {
                         <li className="nav-item">
                             <a className="nav-link" href="#">Home</a>
                         </li>
+                        
                         <li className="nav-item">
                             <a className="nav-link" href="#">Sobre nós</a>
                         </li>
