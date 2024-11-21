@@ -1,0 +1,16 @@
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+@media screen and (min-width:900px) {
+    .card-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (min-width:1900px) {
+    .card-title {
+        font-size: 2rem;
+    }
+}

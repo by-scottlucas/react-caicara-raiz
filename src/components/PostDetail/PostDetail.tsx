@@ -5,13 +5,14 @@ import { useParams, Link } from 'react-router-dom';
 
 function PostDetail() {
     const { id } = useParams();
-    const [post, setPost] = useState<any>(null);
+    const [post, setPost] = useState(null);
 
     const fetchPost = async () => {
         try {
-            const response = await fetch(`http://localhost/wordpress/wp-json/wp/v2/posts/${id}`);
+            const response = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/lucasluke307.wordpress.com/posts/${id}`);
             const data = await response.json();
-            setPost(data);
+            // setPost(data);
+            console.log(data)
         } catch (error) {
             console.error('Erro ao carregar o post:', error);
         }
@@ -26,10 +27,10 @@ function PostDetail() {
             {post ? (
                 <>
                     <header className="post-header">
-                        <h1 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+                        <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
                     </header>
                     <article className="post-content">
-                        <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+                        <div dangerouslySetInnerHTML={{ __html: post.content }} />
                     </article>
                 </>
             ) : (
