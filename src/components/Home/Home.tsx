@@ -1,6 +1,7 @@
 import './Home.css';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../Header/Header';
 
 function Home() {
     const [posts, setPosts] = useState<any[]>([]);
@@ -20,13 +21,10 @@ function Home() {
     }, []);
 
     return (
-        <main className="blog-container">
-            <header className="blog-header">
-                <h1>My Professional Blog</h1>
-                <p>Insights, trends, and tips from the industry</p>
-            </header>
+        <main className="blog-container container-fluid p-0">
+            <Header />
 
-            <div className="blog-content">
+            {/* <div className="blog-content">
                 <section className="posts">
                     <h2>Posts</h2>
                     {posts.length ? (
@@ -47,11 +45,11 @@ function Home() {
                         <p>Loading posts...</p>
                     )}
                 </section>
-            </div>
+            </div> */}
 
-            <footer className="blog-footer">
+            {/* <footer className="blog-footer">
                 <p>© 2024 My Professional Blog. All Rights Reserved.</p>
-            </footer>
+            </footer> */}
         </main>
     );
 }
