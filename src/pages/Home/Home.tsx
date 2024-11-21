@@ -7,7 +7,8 @@ import Banner from '../../components/Banner/Banner';
 function Home() {
 
     return (
-        <main className="blog-container container-fluid p-0">
+
+        <section className="blog-container container-fluid p-0">
             <Header />
             <Banner />
             <Posts />
@@ -15,7 +16,7 @@ function Home() {
             {/* <footer className="blog-footer">
                 <p>© 2024 My Professional Blog. All Rights Reserved.</p>
             </footer> */}
-        </main>
+        </section>
     );
 }
 

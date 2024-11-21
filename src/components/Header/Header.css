@@ -1,7 +1,3 @@
-.logotipo{
-    max-height: 32px;
-}
-
 .navbar-toggler {
     font-size: 1.5rem;
     border-radius: 3px;
@@ -21,8 +17,10 @@
 
 @media screen and (min-width: 960px) {
     .nav-link {
-        margin-top: 0;
-        margin-bottom: 0;
         font-size: 1.15rem;
+    }
+
+    .logotipo{
+        min-width: 130px;
     }
 }

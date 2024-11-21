@@ -5,8 +5,8 @@ import logotipo from '../../assets/logotipo.png';
 export default function Header() {
     return (
         <nav className="navbar navbar-expand-lg p-lg-3">
-            <div className="container-fluid d-flex">
-                <a className="navbar-brand col-6 col-sm-4 col-md-3 col-lg-2" href="#">
+            <div className="container-fluid d-flex align-items-center">
+                <a className="navbar-brand col-5 col-sm-3 col-md-2 col-lg-1" href="/">
                     <img src={logotipo} alt="PG Dicas" className="img-fluid logotipo" />
                 </a>
 

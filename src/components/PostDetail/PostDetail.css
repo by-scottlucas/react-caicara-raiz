@@ -1,0 +1,123 @@
+.post-title {
+    font-size: 1.25rem;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 960px) {
+    .post-title {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .post-date {
+        font-size: .9rem;
+    }
+}
+
+.card-date {
+    font-size: 1rem;
+    color: #888;
+}
+
+.post-body {
+    text-align: justify;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    padding: 10px;
+}
+
+.wp-block-heading {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 30px;
+}
+
+.wp-block-list {
+    margin-left: 20px;
+    padding-left: 10px;
+    list-style-type: disc;
+    color: #333;
+}
+
+.wp-block-list li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.post-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.post-body p {
+    margin-bottom: 15px;
+}
+
+.wp-block-spacer {
+    margin: 20px 0;
+}
+
+.card-share {
+    border:none;
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.card-share h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.card-share .row {
+    margin: 0;
+}
+
+.card-share .btn {
+    color: #343a40;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.card-share .btn:hover {
+    color: #212529;
+}
+
+.card-share .btn i {
+    font-size: 1.2rem;
+}
+
+.card-share .btn-facebook {
+    color: #3b5998;
+}
+
+.card-share .btn-twitter {
+    color: #1da1f2;
+}
+
+.card-share .btn-linkedin {
+    color: #0077b5;
+}
+
+.card-share .btn-whatsapp {
+    color: #25d366;
+}

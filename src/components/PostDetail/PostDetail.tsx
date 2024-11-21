@@ -1,21 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import "./PostDetail.css";
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import './PostDetail.css';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Header from '../Header/Header';
 
 function PostDetail() {
     const { id } = useParams();
-    const [post, setPost] = useState<any | null>(null);
+    const [post, setPost] = useState<any>(null);
 
     const fetchPost = async () => {
         try {
-            const response = await fetch(
-                `https://public-api.wordpress.com/rest/v1.1/sites/praiagrandedicas.wordpress.com/posts/${id}`
-            );
+            const response = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/praiagrandedicas.wordpress.com/posts/${id}`);
             const data = await response.json();
             setPost(data);
-            console.log(data);
         } catch (error) {
             console.error("Erro ao carregar o post:", error);
         }
@@ -25,18 +21,119 @@ function PostDetail() {
         fetchPost();
     }, [id]);
 
+    const formatDate = (date: string) => {
+        return new Intl.DateTimeFormat('pt-BR', {
+            month: 'long',
+            day: '2-digit',
+            year: 'numeric',
+        }).format(new Date(date));
+    };
+
+    const sharePost = (platform: string) => {
+        if (!post) return;
+
+        const url = encodeURIComponent(post.URL);
+        const title = encodeURIComponent(post.title);
+        let shareURL = '';
+
+        switch (platform) {
+            case 'facebook':
+                shareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                break;
+            case 'twitter':
+                shareURL = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                break;
+            case 'linkedin':
+                shareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+                break;
+            case 'whatsapp':
+                shareURL = `https://api.whatsapp.com/send?text=${title}%20${url}`;
+                break;
+            default:
+                break;
+        }
+
+        if (shareURL) {
+            window.open(shareURL, '_blank', 'noopener,noreferrer');
+        }
+    };
+
     return (
-        <main className="post-container">
+        <main className="post-container container-fluid">
+            <Header />
+
             {post ? (
-                <>
-                    <header className="post-header">
-                        <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
-                    </header>
-                    
-                    <article className="post-content">
-                        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-                    </article>
-                </>
+                <div className='row d-flex'>
+                    <section className='d-flex mt-5'>
+                        <div className='col-12 col-md-7 col-lg-8 m-auto ms-md-5'>
+                            <header className="post-header mb-2">
+                                <h1 className='post-title'>{post.title}</h1>
+
+                                <div className="row">
+                                    <span className="post-date card-date">
+                                        Publicado em: {formatDate(post.date)}
+                                    </span>
+                                </div>
+                            </header>
+
+                            <article className="post-content">
+                                <div className='d-flex gap-4 m-auto'>
+                                    <img
+                                        alt={post.title}
+                                        className="img-fluid mb-3"
+                                        src={Object.values(post.attachments)[0]?.URL}
+                                    />
+
+                                    <aside className='col-md-7 col-lg-5 d-none d-md-block'>
+                                        <div className="card-share rounded-1 py-4 px-3">
+                                            <h2 className='mb-3 fs-4'>Gostou? Compartilhe</h2>
+
+                                            <div className="row mb-2">
+                                                <button
+                                                    className="btn col-6 btn-facebook"
+                                                    onClick={() => sharePost('facebook')}
+                                                >
+                                                    <i className="bi bi-facebook"></i>
+                                                    Facebook
+                                                </button>
+                                                <button
+                                                    className="btn col-6 btn-twitter"
+                                                    onClick={() => sharePost('twitter')}
+                                                >
+                                                    <i className="bi bi-twitter"></i>
+                                                    Twitter
+                                                </button>
+                                            </div>
+
+                                            <div className="row d-flex">
+                                                <button
+                                                    className="btn col-6 btn-linkedin"
+                                                    onClick={() => sharePost('linkedin')}
+                                                >
+                                                    <i className="bi bi-linkedin"></i>
+                                                    LinkedIn
+                                                </button>
+                                                <button
+                                                    className="btn col-6 btn-whatsapp"
+                                                    onClick={() => sharePost('whatsapp')}
+                                                >
+                                                    <i className="bi bi-whatsapp"></i>
+                                                    WhatsApp
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+
+                                <div className="post-body">
+                                    <span dangerouslySetInnerHTML={{
+                                        __html: post.content.replace(/<figure[^>]*>.*?<\/figure>/, '')
+                                    }}></span>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                </div>
             ) : (
                 <p>Loading post...</p>
             )}
