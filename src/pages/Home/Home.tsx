@@ -1,13 +1,15 @@
 import './Home.css';
 
-import Header from '../Header/Header';
-import Posts from '../Posts/Posts';
+import Header from '../../components/Header/Header';
+import Posts from '../../components/Posts/Posts';
+import Banner from '../../components/Banner/Banner';
 
 function Home() {
 
     return (
         <main className="blog-container container-fluid p-0">
             <Header />
+            <Banner />
             <Posts />
 
             {/* <footer className="blog-footer">

@@ -1,3 +1,20 @@
+.navbar-toggler {
+    font-size: 1.5rem;
+    border-radius: 3px;
+    border-color: transparent;
+}
+
+.navbar-toggler:hover,
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.nav-link {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
 @media screen and (min-width: 960px) {
     .nav-link {
         font-size: 1.15rem;
