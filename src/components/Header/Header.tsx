@@ -32,7 +32,13 @@ export default function Header() {
                             <a className="nav-link" href="#">Sobre nós</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Dicas</a>
+                            <a className="nav-link" href="#">Culinária</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Hospedagem</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Eventos</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">Contato</a>
