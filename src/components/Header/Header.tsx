@@ -27,18 +27,11 @@ export default function Header() {
                         <li className="nav-item">
                             <a className="nav-link" href="#">Home</a>
                         </li>
-                        
                         <li className="nav-item">
                             <a className="nav-link" href="#">Sobre nós</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Culinária</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Hospedagem</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Eventos</a>
+                            <a className="nav-link" href="#">Publicações</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">Contato</a>

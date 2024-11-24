@@ -32,7 +32,7 @@ export default function Posts() {
     return (
         <div className="blog-content container-fluid mt-5">
             <section className="posts row px-xl-5">
-                <h2 className="posts-title text-center text-lg-start mb-lg-4">
+                <h2 className="posts-title text-center text-lg-start mb-lg-2">
                     Publicações Recentes
                 </h2>
 
