@@ -13,7 +13,7 @@ function Home() {
             <Header />
             <Banner />
             <About showHeader={false} />
-            <Posts showHeader={false} totalPosts={3} showPagination={true} />
+            <Posts showHeader={false} postsPerPage={3} showPagination={false} />
             <Footer />
         </main>
     );

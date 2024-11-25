@@ -5,9 +5,7 @@ import Header from '../Header/Header';
 export default function About({ showHeader }: any) {
     return (
         <>
-            {showHeader === true ? (
-                <Header />
-            ): ''}
+            {showHeader && <Header />}
 
             <section className="about-container container-fluid mt-5">
                 <div className="row content-row w-100 m-auto">

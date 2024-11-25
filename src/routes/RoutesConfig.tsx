@@ -9,7 +9,7 @@ function RoutesConfig() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About showHeader={true} />} />
-            <Route path="/posts" element={<Posts showHeader={true} showPagination={true} />} />
+            <Route path="/posts" element={<Posts showHeader={true} postsPerPage={10} showPagination={true} />} />
             <Route path="/posts/:id" element={<PostDetail />} />
         </Routes>
     );

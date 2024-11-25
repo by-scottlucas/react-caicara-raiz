@@ -5,16 +5,15 @@ import Pagination from "../Pagination/Pagination";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-export default function Posts({ showHeader, showPagination, totalPosts }: any) {
-
-    const [posts, setPosts] = useState<any>([]);
+export default function Posts({ showHeader, showPagination, postsPerPage}: any) {
+    const [posts, setPosts] = useState<any[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const fetchPosts = async () => {
         try {
             const response = await fetch('https://public-api.wordpress.com/rest/v1.1/sites/praiagrandedicas.wordpress.com/posts');
             const data = await response.json();
             setPosts(data.posts);
-            console.log(data.posts)
         } catch (error) {
             console.error('Erro ao carregar posts:', error);
         }
@@ -32,11 +31,15 @@ export default function Posts({ showHeader, showPagination, totalPosts }: any) {
         }).format(new Date(date));
     };
 
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+    const totalPages = Math.ceil(posts.length / postsPerPage);
+
     return (
         <>
-            {showHeader === true ? (
-                <Header />
-            ) : ''}
+            {showHeader && <Header />}
 
             <div className="blog-content container-fluid mt-5">
                 <section className="posts row px-xl-5">
@@ -44,8 +47,8 @@ export default function Posts({ showHeader, showPagination, totalPosts }: any) {
                         Publicações Recentes
                     </h2>
 
-                    {posts.length ? (
-                        posts.slice(0, totalPosts).map((post: any) => (
+                    {currentPosts.length ? (
+                        currentPosts.map((post: any) => (
                             <article key={post.ID} className="col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
                                 <div className="card card-post h-100 px-2 px-lg-0">
                                     <div className="mb-3">
@@ -82,12 +85,16 @@ export default function Posts({ showHeader, showPagination, totalPosts }: any) {
                     )}
                 </section>
 
-                {showPagination === true ? (
-                    <Pagination currentPage={1} totalPages={3} />
-                ) : ''}
+                {showPagination && (
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        setCurrentPage={setCurrentPage}
+                    />
+                )}
             </div>
 
-            <Footer />
+            {showHeader && <Footer />}
         </>
-    )
+    );
 }
