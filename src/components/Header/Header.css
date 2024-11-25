@@ -1,3 +1,8 @@
+.logotipo {
+    min-width: 100%;
+    max-width: 160px;
+}
+
 .navbar-toggler {
     font-size: 1.5rem;
     border-radius: 3px;
@@ -11,16 +16,24 @@
 
 .nav-link {
     margin-top: 4px;
+    color: #2c3e50;
     text-align: center;
     font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: #121212;
+    border: none;
 }
 
 @media screen and (min-width: 960px) {
     .nav-link {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
     }
 
-    .logotipo{
+    .logotipo {
         min-width: 130px;
     }
 }

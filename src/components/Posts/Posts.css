@@ -7,6 +7,9 @@
     border: none;
     border-radius: 3px;
     padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .card-title {
@@ -36,17 +39,10 @@
 }
 
 .card-text {
-    text-align: justify;
-    text-wrap: wrap;
-    overflow: hidden;
-    position: relative;
-    display: -webkit-box;
-    line-clamp: 10;
-    -webkit-line-clamp: 10;
-    -webkit-box-orient: vertical;
     color: #3d3d3d;
+    text-align: justify;
+    margin-bottom: auto;
 }
-
 
 @media screen and (min-width:900px) {
     .card-text {
@@ -61,7 +57,7 @@
 }
 
 .button-style {
-    color: #FF0045;
+    color: #2c3e50;
     padding: 10px 0;
     border-radius: 3px;
 
@@ -77,10 +73,11 @@
 .view-button {
     background: transparent;
     transition: 300ms ease-in-out;
-    border: 1px solid #FF0045;
+    border: 1px solid #2c3e50;
+    margin-top: auto;
 }
 
 .view-button:hover {
     color: #FFF;
-    background: #FF0045;
+    background: #2c3e50;
 }

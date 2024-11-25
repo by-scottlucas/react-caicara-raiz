@@ -90,7 +90,8 @@
     transition: 300ms ease-in-out;
 }
 
-.contact-button-style:hover {
+.contact-button-style:hover,
+.contact-button-style:focus {
     color: #FFF;
     background: #1b2835;
 }
