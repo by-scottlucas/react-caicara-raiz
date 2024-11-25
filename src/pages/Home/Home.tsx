@@ -12,8 +12,8 @@ function Home() {
         <main className="blog-container container-fluid p-0">
             <Header />
             <Banner />
-            <About />
-            <Posts />
+            <About showHeader={false} />
+            <Posts showHeader={false} totalPosts={3} showPagination={true} />
             <Footer />
         </main>
     );

@@ -1,0 +1,22 @@
+.pagination-button {
+    border: none;
+    border-radius: 3px;
+    padding: 0;
+    width: 32px;
+    aspect-ratio: 1;
+}
+
+.pagination-button:hover {
+    background: #dfdede;
+}
+
+.current-page {
+    width: 30px;
+    padding: 0;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #dfdede;
+    border-radius: 3px;
+}

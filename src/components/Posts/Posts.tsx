@@ -1,8 +1,11 @@
 import "./Posts.css";
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Pagination from "../Pagination/Pagination";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
-export default function Posts() {
+export default function Posts({ showHeader, showPagination, totalPosts }: any) {
 
     const [posts, setPosts] = useState<any>([]);
 
@@ -30,51 +33,61 @@ export default function Posts() {
     };
 
     return (
-        <div className="blog-content container-fluid mt-5">
-            <section className="posts row px-xl-5">
-                <h2 className="posts-title text-center text-lg-start mb-lg-2">
-                    Publicações Recentes
-                </h2>
+        <>
+            {showHeader === true ? (
+                <Header />
+            ) : ''}
 
-                {posts.length ? (
-                    posts.map((post: any) => (
-                        <article key={post.ID} className="col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
-                            <div className="card card-post h-100 px-2 px-lg-0">
-                                <div className="mb-3">
+            <div className="blog-content container-fluid mt-5">
+                <section className="posts row px-xl-5">
+                    <h2 className="posts-title text-center text-lg-start mb-lg-2">
+                        Publicações Recentes
+                    </h2>
 
-                                    <img
-                                        src={Object.values(post.attachments)[0]?.URL}
-                                        alt={post.title}
-                                        className="img-fluid mb-3"
-                                    />
+                    {posts.length ? (
+                        posts.slice(0, totalPosts).map((post: any) => (
+                            <article key={post.ID} className="col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
+                                <div className="card card-post h-100 px-2 px-lg-0">
+                                    <div className="mb-3">
+                                        <img
+                                            src={Object.values(post.attachments)[0]?.URL}
+                                            alt={post.title}
+                                            className="img-fluid mb-3"
+                                        />
 
-                                    <h2 className="card-title">
-                                        <Link
-                                            className="card-title"
-                                            to={`/post/${post.ID}`}
-                                            dangerouslySetInnerHTML={{ __html: post.title }} />
-                                    </h2>
+                                        <h2 className="card-title">
+                                            <Link
+                                                className="card-title"
+                                                to={`/posts/${post.ID}`}
+                                                dangerouslySetInnerHTML={{ __html: post.title }} />
+                                        </h2>
 
-                                    <span className="card-date">{formatDate(post.date)}</span>
+                                        <span className="card-date">{formatDate(post.date)}</span>
+                                    </div>
+
+                                    <div
+                                        className="card-text"
+                                        dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+
+                                    <Link
+                                        to={`/posts/${post.ID}`}
+                                        className="col-12 btn button-style view-button mt-2 read-more">
+                                        Continue lendo
+                                    </Link>
                                 </div>
+                            </article>
+                        ))
+                    ) : (
+                        <p>Loading posts...</p>
+                    )}
+                </section>
 
-                                <div
-                                    className="card-text"
-                                    dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+                {showPagination === true ? (
+                    <Pagination currentPage={1} totalPages={3} />
+                ) : ''}
+            </div>
 
-                                <Link
-                                    to={`/post/${post.ID}`}
-                                    className="col-12 btn button-style view-button mt-2 read-more"
-                                >
-                                    Continue lendo
-                                </Link>
-                            </div>
-                        </article>
-                    ))
-                ) : (
-                    <p>Loading posts...</p>
-                )}
-            </section>
-        </div>
+            <Footer />
+        </>
     )
 }
