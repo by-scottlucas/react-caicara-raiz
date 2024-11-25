@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import Pagination from "../Pagination/Pagination";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Loading from "../Loading/Loading";
 
-export default function Posts({ showHeader, showPagination, postsPerPage}: any) {
+export default function Posts({ showHeader, showPagination, postsPerPage }: any) {
     const [posts, setPosts] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -41,14 +42,14 @@ export default function Posts({ showHeader, showPagination, postsPerPage}: any) 
         <>
             {showHeader && <Header />}
 
-            <div className="blog-content container-fluid mt-5">
-                <section className="posts row px-xl-5">
-                    <h2 className="posts-title text-center text-lg-start mb-lg-2">
-                        Publicações Recentes
-                    </h2>
+            {currentPosts.length ? (
+                <div className="blog-content container-fluid mt-5">
+                    <section className="posts row px-xl-5">
+                        <h2 className="posts-title text-center text-lg-start mb-lg-2">
+                            Publicações Recentes
+                        </h2>
 
-                    {currentPosts.length ? (
-                        currentPosts.map((post: any) => (
+                        {currentPosts.map((post: any) => (
                             <article key={post.ID} className="col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
                                 <div className="card card-post h-100 px-2 px-lg-0">
                                     <div className="mb-3">
@@ -79,20 +80,22 @@ export default function Posts({ showHeader, showPagination, postsPerPage}: any) 
                                     </Link>
                                 </div>
                             </article>
-                        ))
-                    ) : (
-                        <p>Loading posts...</p>
-                    )}
-                </section>
+                        ))}
+                    </section>
 
-                {showPagination && (
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        setCurrentPage={setCurrentPage}
-                    />
-                )}
-            </div>
+                    {showPagination && (
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    )}
+                </div>
+            ) : (
+                <div className="loading-box">
+                    <Loading />
+                </div>
+            )}
 
             {showHeader && <Footer />}
         </>

@@ -2,6 +2,7 @@ import './PostDetail.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../Header/Header';
+import Loading from '../Loading/Loading';
 
 function PostDetail() {
     const { id } = useParams();
@@ -135,7 +136,9 @@ function PostDetail() {
                     </section>
                 </div>
             ) : (
-                <p>Loading post...</p>
+                <div className="loading-box">
+                    <Loading />
+                </div>
             )}
         </main>
     );
