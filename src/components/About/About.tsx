@@ -7,7 +7,7 @@ export default function About({ showHeader }: any) {
         <>
             {showHeader && <Header />}
 
-            <section className="about-container container-fluid mt-5">
+            <section className="about-container container-fluid mt-3">
                 <div className="row content-row w-100 m-auto">
                     <div className="col-11 col-md-4 order-2">
                         <img src={aboutImage} alt="Vista da Baixada Santista" className="img-fluid about-image" />
