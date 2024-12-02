@@ -31,33 +31,32 @@ function PostDetail() {
     };
 
     const sharePost = (platform: string) => {
-        if (!post) return;
-
-        const url = encodeURIComponent(post.URL);
-        const title = encodeURIComponent(post.title);
+        const currentURL = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(post?.title || "Confira este conteúdo!");
         let shareURL = '';
-
+    
         switch (platform) {
             case 'facebook':
-                shareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                shareURL = `https://www.facebook.com/sharer/sharer.php?u=${currentURL}`;
                 break;
             case 'twitter':
-                shareURL = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                shareURL = `https://twitter.com/intent/tweet?url=${currentURL}&text=${title}`;
                 break;
             case 'linkedin':
-                shareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+                shareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${currentURL}&title=${title}`;
                 break;
             case 'whatsapp':
-                shareURL = `https://api.whatsapp.com/send?text=${title}%20${url}`;
+                shareURL = `https://api.whatsapp.com/send?text=${title}%20${currentURL}`;
                 break;
             default:
                 break;
         }
-
+    
         if (shareURL) {
             window.open(shareURL, '_blank', 'noopener,noreferrer');
         }
     };
+    
 
     return (
         <main className="post-container container-fluid">
