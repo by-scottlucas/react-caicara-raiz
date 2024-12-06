@@ -5,9 +5,10 @@ import Pagination from "../Pagination/Pagination";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Loading from "../Loading/Loading";
+import { Post } from "../../models/Post";
 
 export default function Posts({ showHeader, showPagination, postsPerPage }: any) {
-    const [posts, setPosts] = useState<any[]>([]);
+    const [posts, setPosts] = useState<Post[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const fetchPosts = async () => {
@@ -49,12 +50,12 @@ export default function Posts({ showHeader, showPagination, postsPerPage }: any)
                             Publicações Recentes
                         </h2>
 
-                        {currentPosts.map((post: any) => (
+                        {currentPosts.map((post: Post) => (
                             <article key={post.ID} className="col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
                                 <div className="card card-post h-100 px-2 px-lg-0">
                                     <div className="mb-3">
                                         <img
-                                            src={Object.values(post.attachments)[0]?.URL}
+                                            src={post.attachments && Object.values(post.attachments)[0]?.URL}
                                             alt={post.title}
                                             className="img-fluid mb-3"
                                         />
