@@ -1,46 +1,59 @@
 import './Header.css';
 
-import logotipo from '../../assets/logotipo.png';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Header() {
+import logotipo from '../../assets/logotipo.png';
 
-    const navLinks = [
+interface NavLink {
+    label: string;
+    url: string;
+}
+
+export default function Header() {
+    const navLinks: NavLink[] = [
         { label: "Home", url: "/" },
-        { label: "Sobre nós", url: "/about" },
-        { label: "Publicações", url: "/posts" },
-        { label: "Contato", url: "/contact" },
-    ]
+        { label: "Cultura", url: "/" },
+        { label: "Culinária", url: "/" },
+        { label: "Eventos", url: "/" },
+        { label: "Quem Somos", url: "/" },
+        { label: "Contato", url: "/" },
+    ];
+
+    const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+    const showMenuIcon = () => menuIsOpen ? <X size={26} /> : <Menu size={26} />;
 
     return (
-        <nav className="navbar navbar-expand-lg p-lg-3">
-            <div className="container-fluid d-flex align-items-center">
-                <Link className="navbar-brand col-5 col-sm-3 col-md-2 col-lg-1" to="/">
-                    <img src={logotipo} alt="Caiçara Raíz" className="img-fluid logotipo" />
+        <header className="header">
+            <div className="header__container">
+                <Link className="header__brand" to="/">
+                    <img
+                        src={logotipo}
+                        alt="Caiçara Raíz"
+                        className="header__brand-image"
+                    />
                 </Link>
 
                 <button
                     type="button"
-                    className="navbar-toggler"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
+                    className="header__menu-toggle"
+                    onClick={() => setMenuIsOpen(!menuIsOpen)}
                 >
-                    <span className="navbar-toggler-icon"></span>
+                    {showMenuIcon()}
                 </button>
 
-                <div className="collapse navbar-collapse w-100 d-lg-flex justify-content-lg-end" id="navbarNav">
-                    <ul className="navbar-nav d-lg-flex gap-lg-4 text-end">
-                        {navLinks.map((item: any) => (
-                            <li className="nav-item">
-                                <Link className="nav-link" to={item.url}>{item.label}</Link>
-                            </li>)
-                        )}
-                    </ul>
-                </div>
+                <ul className={`header__nav ${menuIsOpen ? "flex" : "hidden"} lg:flex`}>
+                    {navLinks.map((item: NavLink) => (
+                        <li key={item.label} className="header__nav-item">
+                            <Link to={item.url} className="header__nav-link">
+                                {item.label}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
             </div>
-        </nav>
+        </header>
     )
 }

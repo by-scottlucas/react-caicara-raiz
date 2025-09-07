@@ -1,39 +1,30 @@
-.logotipo {
-    min-width: 100%;
-    max-width: 160px;
+@import "tailwindcss";
+
+.header {
+  @apply px-4 py-4 lg:px-8;
 }
 
-.navbar-toggler {
-    font-size: 1.5rem;
-    border-radius: 3px;
-    border-color: transparent;
+.header__container {
+  @apply flex items-center justify-between relative;
 }
 
-.navbar-toggler:hover,
-.navbar-toggler:focus {
-    box-shadow: none;
+.header__brand-image {
+  @apply max-w-32;
 }
 
-.nav-link {
-    margin-top: 4px;
-    color: #2c3e50;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: 500;
+.header__menu-toggle {
+  @apply aspect-square p-2 rounded-md lg:hidden;
 }
 
-.nav-link:hover,
-.nav-link:focus {
-    color: #121212;
-    border: none;
+.header__nav {
+  @apply flex-col w-full absolute top-full left-0 bg-white 
+         lg:static lg:flex-row lg:w-auto lg:bg-transparent gap-4 lg:gap-6;
 }
 
-@media screen and (min-width: 960px) {
-    .nav-link {
-        font-size: 1.1rem;
-    }
+.header__nav-item {
+  @apply text-center lg:text-left py-1 lg:py-0;
+}
 
-    .logotipo {
-        min-width: 130px;
-    }
+.header__nav-link {
+  @apply text-gray-800 hover:text-blue-700 transition-colors;
 }
