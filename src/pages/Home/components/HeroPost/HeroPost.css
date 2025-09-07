@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+.hero-post {
+    @apply relative block rounded-lg overflow-hidden;
+}
+
+.hero-post__image {
+    @apply w-full h-full object-cover z-0 transition-transform duration-500;
+}
+
+.hero-post:hover .hero-post__image {
+    @apply scale-105;
+}
+
+.hero-post__overlay {
+    @apply absolute inset-0 z-10 bg-black/78;
+}
+
+.hero-post__content {
+    @apply absolute z-20 text-white max-w-[85%];
+}
+
+.hero-post__category {
+    @apply bg-blue-600 w-fit px-5 py-0.5 rounded-full text-sm text-white mb-2;
+}
+
+.hero-post__title {
+    @apply font-black text-sm lg:text-xl mb-2;
+}
+
+.hero-post__description {
+    @apply text-sm md:text-base;
+}
+
+.hero-post--primary .hero-post__image {
+    @apply aspect-video md:w-[560px] lg:w-[950px];
+}
+
+.hero-post--primary .hero-post__content {
+    @apply bottom-8 left-5 lg:bottom-14 lg:left-12 absolute;
+}
+
+.hero-post--primary .hero-post__title {
+    @apply text-xl lg:text-3xl line-clamp-2;
+}
+
+.hero-post--primary .hero-post__description {
+    @apply text-xs lg:text-sm line-clamp-2;
+}
+
+.hero-post--secondary .hero-post__image {
+    @apply aspect-square md:w-[220px] lg:w-[280px];
+}
+
+.hero-post--secondary .hero-post__content {
+    @apply bottom-3 left-4 absolute lg:bottom-10 lg:left-6;
+}
+
+.hero-post--secondary .hero-post__title {
+    @apply text-sm lg:text-lg line-clamp-2;
+}

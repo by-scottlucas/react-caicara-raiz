@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+.hero-posts {
+    @apply flex flex-col md:flex-row justify-center items-stretch gap-5 px-5;
+}
+
+.hero-posts__secondary-posts {
+    @apply flex md:flex-col justify-between gap-5;
+}
