@@ -14,9 +14,9 @@ interface NavLink {
 export default function Header() {
     const navLinks: NavLink[] = [
         { label: "Home", url: "/" },
-        { label: "Cultura", url: "/" },
+        { label: "Publicações", url: "/" },
+        { label: "Turismo", url: "/" },
         { label: "Culinária", url: "/" },
-        { label: "Eventos", url: "/" },
         { label: "Quem Somos", url: "/" },
         { label: "Contato", url: "/" },
     ];

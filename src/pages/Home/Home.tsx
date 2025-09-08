@@ -1,6 +1,6 @@
 import './Home.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
@@ -8,10 +8,17 @@ import { Post } from '../../models/Post';
 import { fetchPosts } from '../../services/wordpressService';
 import { getPostCategory, getPostImage } from '../../utils/postUtils';
 import HeroPost from './components/HeroPost/HeroPost';
+import { PostSection } from './components/PostSection/PostSection';
+import { useWindowWidth } from './hooks/useWindowWidth';
 
 export default function Home() {
+  const width = useWindowWidth();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const recentPostsRef = useRef<HTMLDivElement>(null);
+  const tourismPostsRef = useRef<HTMLDivElement>(null);
+  const culinaryPostsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -34,6 +41,15 @@ export default function Home() {
   const [primaryPost, ...otherPosts] = posts;
   const secondaryPosts = otherPosts.slice(0, 2);
 
+  const tourismPosts = posts.filter(post => getPostCategory(post) === 'Turismo');
+  const culinaryPosts = posts.filter(post => getPostCategory(post) === 'Culinária');
+
+  const sections = [
+    { title: 'Publicações Recentes', posts, ref: recentPostsRef },
+    { title: 'Dicas de Passeio', posts: tourismPosts, ref: tourismPostsRef },
+    { title: 'Dicas de Culinária', posts: culinaryPosts, ref: culinaryPostsRef },
+  ];
+
   return (
     <main className="home-page">
       <Header />
@@ -49,7 +65,7 @@ export default function Home() {
         />
 
         <div className="hero-posts__secondary-posts">
-          {secondaryPosts.map((post) => (
+          {secondaryPosts.map(post => (
             <HeroPost
               key={post.ID}
               image={getPostImage(post)}
@@ -60,6 +76,16 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {sections.map(({ title, posts, ref }) => (
+        <PostSection
+          key={title}
+          ref={ref}
+          title={title}
+          posts={posts}
+          width={width}
+        />
+      ))}
 
       <Footer />
     </main>

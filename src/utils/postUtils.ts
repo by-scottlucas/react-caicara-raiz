@@ -14,3 +14,11 @@ export const getPostCategory = (post: Post): string => {
   }
   return "Sem categoria";
 };
+
+export const formatPostDate = (date: string) => {
+  return new Intl.DateTimeFormat("pt-BR", {
+    month: "long",
+    day: "2-digit",
+    year: "numeric",
+  }).format(new Date(date));
+};

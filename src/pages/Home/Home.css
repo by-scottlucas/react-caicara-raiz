@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
+.home-page {
+    @apply bg-gray-100;
+}
+
 .hero-posts {
-    @apply flex flex-col md:flex-row justify-center items-stretch gap-5 px-5;
+    @apply flex flex-col md:flex-row justify-center items-stretch gap-5 px-5 lg:max-h-[560px] mt-6 lg:mt-2;
 }
 
 .hero-posts__secondary-posts {

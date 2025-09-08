@@ -33,7 +33,7 @@
 }
 
 .hero-post--primary .hero-post__image {
-    @apply aspect-video md:w-[560px] lg:w-[950px];
+    @apply aspect-square md:aspect-video md:w-[560px] lg:w-[950px];
 }
 
 .hero-post--primary .hero-post__content {
