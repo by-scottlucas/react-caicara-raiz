@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+.about {
+    @apply w-full flex flex-col-reverse
+    justify-between px-8 mt-8 md:px-14 lg:mt-32 lg:px-16 lg:flex-row-reverse;
+}
+
+.about__image {
+    @apply aspect-square object-cover max-h-[410px] rounded-lg mt-8;
+}
+
+.about-content {
+    @apply max-w-2xl flex flex-col justify-evenly;
+}
+
+.about-content__title {
+    @apply text-3xl lg:text-4xl font-black mb-5 lg:mb-0;
+}
+
+.about-content__paragraph {
+    @apply text-lg text-justify;
+}
+
+.about-content__list {
+    @apply flex flex-col gap-4 lg:ms-6 my-6 md:my-0;
+}
+
+.about-content__list-item {
+    @apply flex gap-2 text-justify;
+}

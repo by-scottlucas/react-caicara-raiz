@@ -7,6 +7,7 @@ import Header from '../../components/Header/Header';
 import { Post } from '../../models/Post';
 import { fetchPosts } from '../../services/wordpressService';
 import { getPostCategory, getPostImage } from '../../utils/postUtils';
+import AboutSection from './components/AboutSection/AboutSection';
 import HeroPost from './components/HeroPost/HeroPost';
 import { PostSection } from './components/PostSection/PostSection';
 import { useWindowWidth } from './hooks/useWindowWidth';
@@ -86,6 +87,8 @@ export default function Home() {
           width={width}
         />
       ))}
+
+      <AboutSection />
 
       <Footer />
     </main>
