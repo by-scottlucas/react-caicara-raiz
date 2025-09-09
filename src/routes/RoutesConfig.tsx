@@ -1,19 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Contact from '../components/Contact/Contact';
-import EmailSent from '../components/EmailSent/EmailSent';
-import PostDetail from '../components/PostDetail/PostDetail';
-import Posts from '../components/Posts/Posts';
+import Contact from '../pages/Contact/Contact';
 import Home from '../pages/Home/Home';
+import PostDetail from '../pages/PostDetail/PostDetail';
 
 function RoutesConfig() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/posts" element={<Posts showHeader={true} postsPerPage={10} showPagination={true} />} />
             <Route path="/posts/:id" element={<PostDetail />} />
-            <Route path="/contact" element={<Contact showHeader={true} />} />
-            <Route path="/mail" element={<EmailSent />} />
+            <Route path="/contact" element={<Contact />} />
         </Routes>
     );
 }

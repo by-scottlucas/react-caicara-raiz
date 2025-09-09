@@ -1,8 +1,10 @@
 import './PostDetail.css';
+
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../Header/Header';
-import Loading from '../Loading/Loading';
+
+import Header from '../../components/Header/Header';
+import Loading from '../../components/Loading/Loading';
 import { Post } from '../../models/Post';
 
 function PostDetail() {

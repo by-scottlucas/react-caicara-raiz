@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import Header from '../Header/Header';
+import Header from '../../components/Header/Header';
 import './Contact.css';
 
-export default function Contact({ showHeader }: any) {
+import { useState } from 'react';
+
+export default function Contact() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -24,7 +25,6 @@ export default function Contact({ showHeader }: any) {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
 
-        // Limpar erros conforme o usuário digita
         if (value.trim()) {
             setErrors({ ...errors, [name]: '' });
         }
@@ -45,16 +45,14 @@ export default function Contact({ showHeader }: any) {
 
         setErrors(newErrors);
 
-        // Verificar se há erros
         if (!Object.values(newErrors).some((error) => error)) {
-            // Enviar o formulário se não houver erros
             e.currentTarget.submit();
         }
     };
 
     return (
         <>
-            {showHeader && <Header />}
+            <Header />
 
             <section className="contact-container container-fluid mt-5 mt-xl-2" id="contact">
                 <div className="row">

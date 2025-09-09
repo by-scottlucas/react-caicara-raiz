@@ -36,7 +36,7 @@ export default function Home() {
     loadPosts();
   }, []);
 
-  if (loading) return <p>Carregando posts...</p>;
+  if (loading) return null;
   if (posts.length === 0) return <p>Nenhum post encontrado.</p>;
 
   const [primaryPost, ...otherPosts] = posts;
