@@ -18,7 +18,7 @@ export default function Header() {
         { label: "Turismo", url: "/" },
         { label: "Culinária", url: "/" },
         { label: "Quem Somos", url: "/" },
-        { label: "Contato", url: "/" },
+        { label: "Contato", url: "/contact" },
     ];
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);

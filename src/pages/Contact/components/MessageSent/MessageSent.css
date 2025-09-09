@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+.message-sent {
+    @apply min-h-screen flex flex-col items-center justify-center bg-gray-50 px-6;
+}
+
+.message-sent__card {
+    @apply bg-white shadow-md rounded-lg px-8 py-12 md:py-20 max-w-md w-full text-center;
+}
+
+.message-sent__icon {
+    @apply mx-auto text-blue-600 w-16 h-16 mb-4;
+}
+
+.message-sent__title {
+    @apply text-2xl font-black text-gray-800 mb-2;
+}
+
+.message-sent__description {
+    @apply text-gray-600 mb-5;
+}
+
+.message-sent__button {
+    @apply cursor-pointer bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold w-[250px] py-2.5 rounded-md transition;
+}

@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+.contact__field {
+  @apply flex flex-col;
+}
+
+.contact__label {
+  @apply mb-2 font-medium text-gray-700 text-sm;
+}
+
+.contact__input,
+.contact__textarea {
+  @apply w-full border bg-white border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.contact__textarea {
+  @apply min-h-[120px] resize-none;
+}
+
+.contact__input--error {
+  @apply border-red-500 focus:ring-red-500;
+}
+
+.contact__error {
+  @apply mt-1 text-sm text-red-600;
+}
