@@ -33,6 +33,7 @@ export default function Header() {
                         src={logotipo}
                         alt="Caiçara Raíz"
                         className="header__brand-image"
+                        loading='lazy'
                     />
                 </Link>
 
@@ -40,6 +41,9 @@ export default function Header() {
                     type="button"
                     className="header__menu-toggle"
                     onClick={() => setMenuIsOpen(!menuIsOpen)}
+                    aria-expanded={menuIsOpen}
+                    aria-controls="primary-navigation"
+                    aria-label='Menu Button'
                 >
                     {showMenuIcon()}
                 </button>

@@ -16,6 +16,7 @@ export default function CardPost({ post }: CardPostProps) {
                     alt={post.title}
                     src={getPostImage(post)}
                     className="card-post__image"
+                    loading="lazy"
                 />
             </div>
 

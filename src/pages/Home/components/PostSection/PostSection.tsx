@@ -12,66 +12,78 @@ interface PostSectionProps {
     width: number;
 }
 
-export const PostSection = forwardRef<HTMLDivElement, PostSectionProps>(({ title, posts, width }) => {
-    const { scrollToIndex } = useCarousel();
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
+export const PostSection = forwardRef<HTMLDivElement, PostSectionProps>(
+    ({ title, posts, width }, ref) => {
+        const { scrollToIndex } = useCarousel();
+        const containerRef = useRef<HTMLDivElement>(null);
+        const [activeIndex, setActiveIndex] = useState(0);
 
-    useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
+        useEffect(() => {
+            if (!ref || !containerRef.current) return;
 
-        const children = Array.from(container.children) as HTMLElement[];
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const index = children.indexOf(entry.target as HTMLElement);
-                        setActiveIndex(index);
-                    }
-                });
-            },
-            {
-                root: container,
-                threshold: 0.5,
+            if (typeof ref === "function") {
+                ref(containerRef.current);
+            } else {
+                (ref as React.MutableRefObject<HTMLDivElement | null>).current = containerRef.current;
             }
-        );
+        }, [ref]);
 
-        children.forEach(child => observer.observe(child));
+        useEffect(() => {
+            const container = containerRef.current;
+            if (!container) return;
 
-        return () => {
-            children.forEach(child => observer.unobserve(child));
-        };
-    }, [posts]);
+            const children = Array.from(container.children) as HTMLElement[];
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const index = children.indexOf(entry.target as HTMLElement);
+                            setActiveIndex(index);
+                        }
+                    });
+                },
+                {
+                    root: container,
+                    threshold: 0.5,
+                }
+            );
 
-    if (posts.length === 0) return null;
+            children.forEach(child => observer.observe(child));
 
-    const getButtonClass = (index: number) =>
-        `post-section__indicator ${activeIndex === index ? 'post-section__indicator--active' : ''}`;
+            return () => {
+                children.forEach(child => observer.unobserve(child));
+            };
+        }, [posts]);
 
-    return (
-        <div className="post-section">
-            <h2 className="post-section__title">{title}</h2>
+        if (posts.length === 0) return null;
 
-            <div ref={containerRef} className="post-section__posts">
-                {posts.map(post => (
-                    <CardPost key={post.ID} post={post} />
-                ))}
-            </div>
+        const getButtonClass = (index: number) =>
+            `post-section__indicator ${activeIndex === index ? 'post-section__indicator--active' : ''}`;
 
-            {(posts.length > 1 && (posts.length > 3 || width < 768)) && (
-                <div className="post-section__indicators">
-                    {posts.map((_, index) => (
-                        <button
-                            key={index}
-                            type="button"
-                            onMouseDown={e => e.preventDefault()}
-                            onClick={() => scrollToIndex(containerRef, index)}
-                            className={getButtonClass(index)}
-                        />
+        return (
+            <div className="post-section">
+                <h2 className="post-section__title">{title}</h2>
+
+                <div ref={containerRef} className="post-section__posts">
+                    {posts.map(post => (
+                        <CardPost key={post.ID} post={post} />
                     ))}
                 </div>
-            )}
-        </div>
-    );
-});
+
+                {(posts.length > 1 && (posts.length > 3 || width < 768)) && (
+                    <div className="post-section__indicators">
+                        {posts.map((_, index) => (
+                            <button
+                                key={index}
+                                type="button"
+                                onMouseDown={e => e.preventDefault()}
+                                onClick={() => scrollToIndex(containerRef, index)}
+                                className={getButtonClass(index)}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
+        );
+    }
+);

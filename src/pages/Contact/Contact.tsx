@@ -7,6 +7,7 @@ import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import { InputField } from './components/InputField/InputField';
 import { validateEmail } from './utils/formUtils';
+import Seo from '../../components/Seo/Seo';
 
 interface FormData {
     name: string;
@@ -72,6 +73,13 @@ export default function Contact() {
 
     return (
         <div className="contact-page">
+            <Seo
+                title="Fale Conosco | Caiçara Raíz"
+                description="Entre em contato com a equipe do blog Caiçara Raíz para dúvidas, sugestões ou parcerias. Estamos prontos para responder!"
+                url={`${window.location.origin}/contact`}
+                type="page"
+            />
+
             <Header />
             <section className="contact" id="contact">
                 <header className="contact__header">

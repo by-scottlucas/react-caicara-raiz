@@ -11,6 +11,7 @@ import AboutSection from './components/AboutSection/AboutSection';
 import HeroPost from './components/HeroPost/HeroPost';
 import { PostSection } from './components/PostSection/PostSection';
 import { useWindowWidth } from './hooks/useWindowWidth';
+import Seo from '../../components/Seo/Seo';
 
 export default function Home() {
   const width = useWindowWidth();
@@ -53,6 +54,13 @@ export default function Home() {
 
   return (
     <main className="home-page">
+      <Seo
+        title={"Home | Caiçara Raíz"}
+        description={"Caiçara Raíz: Dicas de turismo, culinária e cultura caiçara. Explore nossas publicações e conteúdos exclusivos."}
+        url={`${window.location.origin}`}
+        type="website"
+      />
+
       <Header />
 
       <div className="hero-posts">

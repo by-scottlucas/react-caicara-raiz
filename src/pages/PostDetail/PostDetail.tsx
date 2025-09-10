@@ -1,151 +1,131 @@
 import './PostDetail.css';
 
-import { useEffect, useState } from 'react';
+import { Calendar, Tag, User } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import Loading from '../../components/Loading/Loading';
+import Seo from '../../components/Seo/Seo';
 import { Post } from '../../models/Post';
+import { getPostDetail } from '../../services/wordpressService';
+import { extractPostContent, formatPostDate, getPostCategory, getPostImage } from '../../utils/postUtils';
+import ShareButton from './components/ShareButton/ShareButton';
 
-function PostDetail() {
+export default function PostDetail() {
     const { id } = useParams();
     const [post, setPost] = useState<Post | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    const fetchPost = async () => {
+    const fetchPost = useCallback(async () => {
         try {
-            const response = await fetch(`https://public-api.wordpress.com/rest/v1.1/sites/praiagrandedicas.wordpress.com/posts/${id}`);
-            const data = await response.json();
+            const data = await getPostDetail(id!);
             setPost(data);
         } catch (error) {
             console.error("Erro ao carregar o post:", error);
+        } finally {
+            setLoading(false);
         }
-    };
+    }, [id]);
 
     useEffect(() => {
         fetchPost();
-    }, [id]);
+    }, [fetchPost]);
 
-    const formatDate = (date: string) => {
-        return new Intl.DateTimeFormat('pt-BR', {
-            month: 'long',
-            day: '2-digit',
-            year: 'numeric',
-        }).format(new Date(date));
-    };
+    const imageUrl = useMemo(() => (post ? getPostImage(post) : null), [post]);
 
-    const sharePost = (platform: string) => {
-        const currentURL = encodeURIComponent(`${window.location.origin}/post/${id}`);
-        const title = encodeURIComponent(post?.title || "Confira este conteúdo!");
-        let shareURL = '';
-
-        switch (platform) {
-            case 'facebook':
-                shareURL = `https://www.facebook.com/sharer/sharer.php?u=${currentURL}`;
-                break;
-            case 'twitter':
-                shareURL = `https://twitter.com/intent/tweet?url=${currentURL}&text=${title}`;
-                break;
-            case 'linkedin':
-                shareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${currentURL}&title=${title}`;
-                break;
-            case 'whatsapp':
-                shareURL = `https://api.whatsapp.com/send?text=${title}%20${currentURL}`;
-                break;
-            default:
-                break;
-        }
-
-        if (shareURL) {
-            window.open(shareURL, '_blank', 'noopener,noreferrer');
-        }
-    };
-
-    return (
-        <main className="post-container container-fluid">
-            <Header />
-
-            {post ? (
-                <div className="row d-flex">
-                    <section className="d-flex mt-5">
-                        <div className="col-12 col-md-7 col-lg-8 m-auto ms-md-5">
-                            <header className="post-header mb-2">
-                                <h1 className="post-title">{post.title}</h1>
-                                <div className="row">
-                                    <span className="post-date card-date">
-                                        Publicado em: {formatDate(post.date)}
-                                    </span>
-                                </div>
-                            </header>
-
-                            <article className="post-content">
-                                <div className="d-flex gap-4 m-auto">
-                                    {post.attachments && Object.values(post.attachments)[0]?.URL ? (
-                                        <img
-                                            alt={post.title}
-                                            className="img-fluid mb-3"
-                                            src={Object.values(post.attachments)[0].URL}
-                                        />
-                                    ) : (
-                                        <p>Sem imagem disponível</p>
-                                    )}
-
-                                    <aside className="col-md-7 col-lg-5 d-none d-md-block">
-                                        <div className="card-share rounded-1 py-4 px-3">
-                                            <h2 className="mb-3 fs-4">Gostou? Compartilhe</h2>
-                                            <div className="row mb-2">
-                                                <button
-                                                    className="btn col-6 btn-facebook"
-                                                    onClick={() => sharePost('facebook')}
-                                                >
-                                                    <i className="bi bi-facebook"></i>
-                                                    Facebook
-                                                </button>
-                                                <button
-                                                    className="btn col-6 btn-twitter"
-                                                    onClick={() => sharePost('twitter')}
-                                                >
-                                                    <i className="bi bi-twitter"></i>
-                                                    Twitter
-                                                </button>
-                                            </div>
-                                            <div className="row d-flex">
-                                                <button
-                                                    className="btn col-6 btn-linkedin"
-                                                    onClick={() => sharePost('linkedin')}
-                                                >
-                                                    <i className="bi bi-linkedin"></i>
-                                                    LinkedIn
-                                                </button>
-                                                <button
-                                                    className="btn col-6 btn-whatsapp"
-                                                    onClick={() => sharePost('whatsapp')}
-                                                >
-                                                    <i className="bi bi-whatsapp"></i>
-                                                    WhatsApp
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </aside>
-                                </div>
-
-                                <div className="post-body">
-                                    <span
-                                        dangerouslySetInnerHTML={{
-                                            __html: post.content.replace(/<figure[^>]*>.*?<\/figure>/, ''),
-                                        }}
-                                    ></span>
-                                </div>
-                            </article>
-                        </div>
-                    </section>
-                </div>
-            ) : (
-                <div className="loading-box">
+    if (loading) {
+        return (
+            <main className="post-detail">
+                <Header />
+                <div className="post-detail__loading">
                     <Loading />
                 </div>
-            )}
+            </main>
+        );
+    }
+
+    if (!post) {
+        return (
+            <main className="post-detail">
+                <Header />
+                <p className="post-detail__error">Post não encontrado.</p>
+            </main>
+        );
+    }
+
+    const { description, sections } = extractPostContent(post.content);
+
+
+    return (
+        <main className="post-detail">
+            <Seo
+                title={post.title}
+                description={post.excerpt}
+                image={imageUrl!}
+                url={`${window.location.origin}/posts/${id}`}
+                type="article"
+            />
+
+            <Header />
+
+            <article className="post-detail__content">
+                <header className="post-detail__header">
+                    <span className="post-detail__badge" aria-label="Categoria">
+                        <Tag size={14} aria-hidden="true" />
+                        {getPostCategory(post)}
+                    </span>
+
+                    <h1 className="post-detail__title">{post.title}</h1>
+
+                    <div className="flex gap-3" aria-label="Informações do post">
+                        <span className="post-detail__author">
+                            <User size={18} aria-hidden="true" />
+                            <span>{post.author?.name ?? "Autor desconhecido"}</span>
+                        </span>
+                        <span className="text-sm text-gray-500" aria-hidden="true">
+                            |
+                        </span>
+                        <time className="post-detail__date flex items-center gap-1.5" dateTime={post.date}>
+                            <Calendar size={18} aria-hidden="true" />
+                            {formatPostDate(post.date)}
+                        </time>
+                    </div>
+                </header>
+
+                {description && <h2 className="post-detail__subtitle mb-6">{description}</h2>}
+
+                {imageUrl && (
+                    <figure className="post-detail__banner">
+                        <img
+                            src={imageUrl}
+                            className="post-detail__image"
+                            alt={`Imagem do post: ${post.title}`}
+                            loading="lazy"
+                            width={100}
+                            height={100}
+                        />
+                    </figure>
+                )}
+
+                <section className="post-detail__body">
+                    {sections.map((section, index) => (
+                        <div key={index} className="post-detail__section">
+                            <h3 className="post-detail__section-title">{section.title}</h3>
+                            <div className="post-detail__section-content">{section.content}</div>
+                            {section.image && (
+                                <figure className="post-detail__section-image mt-4">
+                                    {section.image}
+                                </figure>
+                            )}
+                        </div>
+                    ))}
+                </section>
+            </article>
+
+            <Footer />
+            <ShareButton post={post} postId={id as string} />
         </main>
     );
 }
-
-export default PostDetail;
