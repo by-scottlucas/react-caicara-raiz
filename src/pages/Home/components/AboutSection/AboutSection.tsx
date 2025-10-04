@@ -44,7 +44,7 @@ export default function AboutSection() {
     )
 
     return (
-        <section className="about">
+        <section className="about" id="about-section">
             <img
                 src={aboutImage}
                 alt="Vista da Baixada Santista"

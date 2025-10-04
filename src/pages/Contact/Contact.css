@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .contact-page {
-  @apply bg-gray-100 pt-24;
+  @apply bg-gray-100;
 }
 
 .contact {

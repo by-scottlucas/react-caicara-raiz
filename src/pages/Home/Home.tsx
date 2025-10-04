@@ -47,9 +47,9 @@ export default function Home() {
   const culinaryPosts = posts.filter(post => getPostCategory(post) === 'Culinária');
 
   const sections = [
-    { title: 'Publicações Recentes', posts, ref: recentPostsRef },
-    { title: 'Dicas de Passeio', posts: tourismPosts, ref: tourismPostsRef },
-    { title: 'Dicas de Culinária', posts: culinaryPosts, ref: culinaryPostsRef },
+    { title: 'Publicações Recentes', posts, ref: recentPostsRef, id: 'recent-posts' },
+    { title: 'Dicas de Passeio', posts: tourismPosts, ref: tourismPostsRef, id: 'tourism-section' },
+    { title: 'Dicas de Culinária', posts: culinaryPosts, ref: culinaryPostsRef, id: 'culinary-section' },
   ];
 
   return (
@@ -86,13 +86,14 @@ export default function Home() {
         </div>
       </div>
 
-      {sections.map(({ title, posts, ref }) => (
+      {sections.map(({ id, title, posts, ref }) => (
         <PostSection
           key={title}
           ref={ref}
           title={title}
           posts={posts}
           width={width}
+          id={id}
         />
       ))}
 

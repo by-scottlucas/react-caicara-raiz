@@ -7,13 +7,14 @@ import { Post } from '../../../../models/Post';
 import { useCarousel } from '../../hooks/useCarousel';
 
 interface PostSectionProps {
+    id?: string;
     title: string;
     posts: Post[];
     width: number;
 }
 
 export const PostSection = forwardRef<HTMLDivElement, PostSectionProps>(
-    ({ title, posts, width }, ref) => {
+    ({ id, title, posts, width }, ref) => {
         const { scrollToIndex } = useCarousel();
         const containerRef = useRef<HTMLDivElement>(null);
         const [activeIndex, setActiveIndex] = useState(0);
@@ -61,7 +62,7 @@ export const PostSection = forwardRef<HTMLDivElement, PostSectionProps>(
             `post-section__indicator ${activeIndex === index ? 'post-section__indicator--active' : ''}`;
 
         return (
-            <div className="post-section">
+            <div className="post-section" id={id}>
                 <h2 className="post-section__title">{title}</h2>
 
                 <div ref={containerRef} className="post-section__posts">

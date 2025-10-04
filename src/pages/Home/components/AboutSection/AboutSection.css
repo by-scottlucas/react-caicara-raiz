@@ -2,7 +2,8 @@
 
 .about {
     @apply w-full flex flex-col-reverse
-    justify-between px-8 mt-28 md:px-10 lg:px-14 lg:flex-row-reverse;
+    justify-between px-8 md:px-10 lg:px-14 pt-10
+    lg:flex-row-reverse;
 }
 
 .about__image {

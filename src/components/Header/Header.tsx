@@ -3,6 +3,7 @@ import './Header.css';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 import logotipo from '../../assets/logotipo.png';
 
@@ -14,10 +15,10 @@ interface NavLink {
 export default function Header() {
     const navLinks: NavLink[] = [
         { label: "Home", url: "/" },
-        { label: "Publicações", url: "/" },
-        { label: "Turismo", url: "/" },
-        { label: "Culinária", url: "/" },
-        { label: "Quem Somos", url: "/" },
+        { label: "Publicações", url: "/#recent-posts" },
+        { label: "Turismo", url: "/#tourism-section" },
+        { label: "Culinária", url: "/#culinary-section" },
+        { label: "Quem Somos", url: "/#about-section" },
         { label: "Contato", url: "/contact" },
     ];
 
@@ -51,9 +52,15 @@ export default function Header() {
                 <ul className={`header__nav ${menuIsOpen ? "flex" : "hidden"} lg:flex`}>
                     {navLinks.map((item: NavLink) => (
                         <li key={item.label} className="header__nav-item">
-                            <Link to={item.url} className="header__nav-link">
-                                {item.label}
-                            </Link>
+                            {item.url.startsWith("/#") ? (
+                                <HashLink smooth to={item.url} className="header__nav-link" onClick={() => setMenuIsOpen(false)}>
+                                    {item.label}
+                                </HashLink>
+                            ) : (
+                                <Link to={item.url} className="header__nav-link" onClick={() => setMenuIsOpen(false)}>
+                                    {item.label}
+                                </Link>
+                            )}
                         </li>
                     ))}
                 </ul>
