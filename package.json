@@ -1,8 +1,20 @@
 {
-  "name": "react-blog",
+  "name": "react-caicara-raiz",
   "private": true,
   "version": "0.0.0",
+  "description": "React blog about tourism, cuisine, and culture in the Baixada Santista, built with React, TypeScript, and Tailwind CSS",
+  "keywords": [
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "tourism",
+    "culinary",
+    "Baixada Santista",
+    "blog"
+  ],
   "type": "module",
+  "author": "Lucas Santos Silva <lucasluke307@gmail.com> (https://github.com/by-scottlucas)",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
